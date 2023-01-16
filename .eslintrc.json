@@ -1,9 +1,7 @@
 {
   "overrides": [
     {
-      "extends": [
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
-      ],
+      "extends": ["plugin:@typescript-eslint/recommended-requiring-type-checking"],
       "files": ["*.ts", "*.tsx"],
       "parserOptions": {
         "project": "tsconfig.json"
@@ -21,16 +19,13 @@
     "import/order": [
       "warn",
       {
-        "groups": [
-          ["builtin", "external"],
-          "internal",
-          ["parent", "index", "sibling"]
-        ],
+        "groups": [["builtin", "external"], "internal", ["parent", "index", "sibling"]],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc"
         }
       }
     ]
-  }
+  },
+  "ignorePatterns": ["*.cjs"]
 }
