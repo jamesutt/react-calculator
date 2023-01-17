@@ -86,16 +86,32 @@ const Home: NextPage = () => {
           onPress={handlePress}
         />
         <Button className="button-plusminus bg-gray-800 active:bg-gray-600" value="+/-" onPress={handlePress} />
-        <Button className="button-divide bg-amber-500" value="/" onPress={handlePress} />
-        <Button className="button-multiply bg-amber-500" value="*" onPress={handlePress} />
+        <Button
+          className={clsx('button-divide bg-amber-500', previousButton === '/' && 'bg-white text-amber-500')}
+          value="/"
+          onPress={handlePress}
+        />
+        <Button
+          className={clsx('button-multiply bg-amber-500', previousButton === '*' && 'bg-white text-amber-500')}
+          value="*"
+          onPress={handlePress}
+        />
         <Button className="button-7 bg-gray-500" value="7" onPress={handlePress} />
         <Button className="button-8 bg-gray-500" value="8" onPress={handlePress} />
         <Button className="button-9 bg-gray-500" value="9" onPress={handlePress} />
-        <Button className="button-minus bg-amber-500" value="-" onPress={handlePress} />
+        <Button
+          className={clsx('button-minus bg-amber-500', previousButton === '-' && 'bg-white text-amber-500')}
+          value="-"
+          onPress={handlePress}
+        />
         <Button className="button-4 bg-gray-500" value="4" onPress={handlePress} />
         <Button className="button-5 bg-gray-500" value="5" onPress={handlePress} />
         <Button className="button-6 bg-gray-500" value="6" onPress={handlePress} />
-        <Button className="button-plus bg-amber-500" value="+" onPress={handlePress} />
+        <Button
+          className={clsx('button-plus bg-amber-500', previousButton === '+' && 'bg-white text-amber-500')}
+          value="+"
+          onPress={handlePress}
+        />
         <Button className="button-1 bg-gray-500" value="1" onPress={handlePress} />
         <Button className="button-2 bg-gray-500" value="2" onPress={handlePress} />
         <Button className="button-3 bg-gray-500" value="3" onPress={handlePress} />
