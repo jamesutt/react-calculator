@@ -47,9 +47,13 @@ const Home: NextPage = () => {
       setOperand(Number(display))
     } else if (value === '=') {
       if (operator === '') return
-      const mappedOperator = operatorMap[operator as keyof typeof operatorMap]
-      setDisplay(String(mappedOperator(operand, Number(display))))
-      setOperand(Number(display))
+      const func = operatorMap[operator as keyof typeof operatorMap]
+      if (previousButton === '=') {
+        setDisplay(String(func(Number(display), operand)))
+      } else {
+        setDisplay(String(func(operand, Number(display))))
+        setOperand(Number(display))
+      }
     } else if (value === 'AC') {
       setDisplay('0')
       setOperator('')
@@ -74,7 +78,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <div className="calculator-container mx-auto mt-8 w-64 gap-[1px] border border-gray-800 bg-gray-800">
+      <div className="calculator-container mx-auto mt-8 w-80 gap-[1px] overflow-hidden rounded-md border border-gray-800 bg-gray-800">
         <h1 className="display bg-gray-900 py-4 px-2 text-right text-2xl text-white">{display}</h1>
         <Button
           className="button-clear bg-gray-800 active:bg-gray-600"
@@ -130,7 +134,9 @@ const Button = (props: ButtonProps) => {
 
   return (
     <button
-      className={twMerge(clsx('flex-1 items-center justify-center p-4 text-white active:opacity-70', className))}
+      className={twMerge(
+        clsx('hover:pointer flex-1 items-center justify-center p-4 text-xl text-white active:opacity-70', className)
+      )}
       onClick={() => onPress?.(value)}
     >
       {displayButtonLabel(value)}
