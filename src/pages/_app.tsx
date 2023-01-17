@@ -10,8 +10,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
-        <title>Title</title>
-        <meta name="description" content="Description" />
+        <title>Calculator</title>
+        <meta name="description" content="Calculator" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Component {...pageProps} />

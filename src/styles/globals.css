@@ -1,3 +1,73 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.calculator-container {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-areas:
+    'display display display display'
+    'clear plusminus divide multiply'
+    'seven eight nine minus'
+    'four five six add'
+    'one two three equal'
+    'zero zero decimal equal';
+}
+
+.display {
+  grid-area: display;
+}
+.button-clear {
+  grid-area: clear;
+}
+.button-plusminus {
+  grid-area: plusminus;
+}
+.button-equal {
+  grid-area: equal;
+}
+.button-decimal {
+  grid-area: decimal;
+}
+.button-add {
+  grid-area: add;
+}
+.button-minus {
+  grid-area: minus;
+}
+.button-multiply {
+  grid-area: multiply;
+}
+.button-divide {
+  grid-area: divide;
+}
+.button-0 {
+  grid-area: zero;
+}
+.button-1 {
+  grid-area: one;
+}
+.button-2 {
+  grid-area: two;
+}
+.button-3 {
+  grid-area: three;
+}
+.button-4 {
+  grid-area: four;
+}
+.button-5 {
+  grid-area: five;
+}
+.button-6 {
+  grid-area: six;
+}
+.button-7 {
+  grid-area: seven;
+}
+.button-8 {
+  grid-area: eight;
+}
+.button-9 {
+  grid-area: nine;
+}
