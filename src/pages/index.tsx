@@ -3,24 +3,11 @@ import { type NextPage } from 'next'
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-const add = (a: number, b: number) => {
-  return a + b
-}
-const minus = (a: number, b: number) => {
-  return a - b
-}
-const multiply = (a: number, b: number) => {
-  return a * b
-}
-const divide = (a: number, b: number) => {
-  return a / b
-}
-
 const operatorMap = {
-  '+': add,
-  '-': minus,
-  '*': multiply,
-  '/': divide,
+  '+': (a: number, b: number) => a + b,
+  '-': (a: number, b: number) => a - b,
+  '*': (a: number, b: number) => a * b,
+  '/': (a: number, b: number) => a / b,
 }
 
 const operators = Object.keys(operatorMap)
@@ -77,66 +64,53 @@ const Home: NextPage = () => {
   }
 
   return (
-    <>
-      <div className="calculator-container mx-auto mt-8 w-80 gap-[1px] overflow-hidden rounded-md border border-gray-800 bg-gray-800">
-        <h1 className="display bg-gray-900 py-4 px-2 text-right text-2xl text-white">{display}</h1>
-        <Button
-          className="button-clear bg-gray-800 active:bg-gray-600"
-          value={display === '0' ? 'AC' : 'C'}
-          onPress={handlePress}
-        />
-        <Button className="button-plusminus bg-gray-800 active:bg-gray-600" value="+/-" onPress={handlePress} />
-        <Button
-          className={clsx('button-divide bg-amber-500', previousButton === '/' && 'bg-white text-amber-500')}
-          value="/"
-          onPress={handlePress}
-        />
-        <Button
-          className={clsx('button-multiply bg-amber-500', previousButton === '*' && 'bg-white text-amber-500')}
-          value="*"
-          onPress={handlePress}
-        />
-        <Button className="button-7 bg-gray-500" value="7" onPress={handlePress} />
-        <Button className="button-8 bg-gray-500" value="8" onPress={handlePress} />
-        <Button className="button-9 bg-gray-500" value="9" onPress={handlePress} />
-        <Button
-          className={clsx('button-minus bg-amber-500', previousButton === '-' && 'bg-white text-amber-500')}
-          value="-"
-          onPress={handlePress}
-        />
-        <Button className="button-4 bg-gray-500" value="4" onPress={handlePress} />
-        <Button className="button-5 bg-gray-500" value="5" onPress={handlePress} />
-        <Button className="button-6 bg-gray-500" value="6" onPress={handlePress} />
-        <Button
-          className={clsx('button-plus bg-amber-500', previousButton === '+' && 'bg-white text-amber-500')}
-          value="+"
-          onPress={handlePress}
-        />
-        <Button className="button-1 bg-gray-500" value="1" onPress={handlePress} />
-        <Button className="button-2 bg-gray-500" value="2" onPress={handlePress} />
-        <Button className="button-3 bg-gray-500" value="3" onPress={handlePress} />
-        <Button className="button-0 bg-gray-500" value="0" onPress={handlePress} />
-        <Button className="button-equal bg-amber-500" value="=" onPress={handlePress} />
-        <Button className="button-decimal bg-gray-500" value="." onPress={handlePress} />
-      </div>
-    </>
+    <main className="mx-auto mt-8 grid w-80 grid-cols-4 gap-[1px] overflow-hidden rounded-md border border-gray-800 bg-gray-800">
+      <h1 className="col-span-4 bg-gray-900 py-4 px-2 text-right text-2xl text-white">{display}</h1>
+      <Button className="bg-gray-800 active:bg-gray-600" value={display === '0' ? 'AC' : 'C'} onPress={handlePress} />
+      <Button className="bg-gray-800 active:bg-gray-600" value="+/-" onPress={handlePress} />
+      <Button
+        className={clsx('bg-amber-500', previousButton === '/' && 'bg-white text-amber-500')}
+        value="/"
+        onPress={handlePress}
+      />
+      <Button
+        className={clsx('bg-amber-500', previousButton === '*' && 'bg-white text-amber-500')}
+        value="*"
+        onPress={handlePress}
+      />
+      <Button className="bg-gray-500" value="7" onPress={handlePress} />
+      <Button className="bg-gray-500" value="8" onPress={handlePress} />
+      <Button className="bg-gray-500" value="9" onPress={handlePress} />
+      <Button
+        className={clsx('bg-amber-500', previousButton === '-' && 'bg-white text-amber-500')}
+        value="-"
+        onPress={handlePress}
+      />
+      <Button className="bg-gray-500" value="4" onPress={handlePress} />
+      <Button className="bg-gray-500" value="5" onPress={handlePress} />
+      <Button className="bg-gray-500" value="6" onPress={handlePress} />
+      <Button
+        className={clsx('bg-amber-500', previousButton === '+' && 'bg-white text-amber-500')}
+        value="+"
+        onPress={handlePress}
+      />
+      <Button className="bg-gray-500" value="1" onPress={handlePress} />
+      <Button className="bg-gray-500" value="2" onPress={handlePress} />
+      <Button className="bg-gray-500" value="3" onPress={handlePress} />
+      <Button className="row-span-2 bg-amber-500" value="=" onPress={handlePress} />
+      <Button className="col-span-2 bg-gray-500" value="0" onPress={handlePress} />
+      <Button className="bg-gray-500" value="." onPress={handlePress} />
+    </main>
   )
 }
 
 export default Home
 
-const displayButtonLabel = (value: string) => {
-  if (value === '+') {
-    return '+'
-  } else if (value === '-') {
-    return '-'
-  } else if (value === '*') {
-    return '×'
-  } else if (value === '/') {
-    return '÷'
-  } else {
-    return value
-  }
+const buttonLabelMap: Record<string, string> = {
+  '+': '+',
+  '-': '-',
+  '*': '×',
+  '/': '÷',
 }
 
 type ButtonProps = {
@@ -155,7 +129,7 @@ const Button = (props: ButtonProps) => {
       )}
       onClick={() => onPress?.(value)}
     >
-      {displayButtonLabel(value)}
+      {buttonLabelMap[value] ?? value}
     </button>
   )
 }
